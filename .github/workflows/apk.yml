@@ -1,0 +1,53 @@
+name: APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Site
+        run: |
+          npm ci
+          npm run build
+          npx cap sync android
+
+      - name: APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug -PversionCode=${{ github.run_number }} --no-daemon
+          mv app/build/outputs/apk/debug/app-debug.apk ../bate-ponto.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bate-ponto-apk
+          path: bate-ponto.apk
+
+      - name: Publicar em Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Bate Ponto 1.0.${{ github.run_number }}
+          body: Baixe o bate-ponto.apk abaixo e instale no celular. Instala por cima da versão anterior sem perder as tarefas.
+          files: bate-ponto.apk
+          make_latest: true

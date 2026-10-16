@@ -15,11 +15,17 @@ npm install
 npm run dev
 ```
 
-## Gerar o APK
+## Baixar o APK
 
-No Ionic Appflow: build Android, tipo debug ou release. O Appflow roda `npm run build` (sai em `dist/`) e sincroniza o projeto `android/`.
+Todo push na `main` gera o APK pelo GitHub Actions e publica em Releases. Link fixo da versão mais nova:
 
-Local (precisa do Android SDK em `android/local.properties`):
+https://github.com/luizxvk/bate_ponto/releases/latest/download/bate-ponto.apk
+
+Pra gerar sem push: aba Actions > APK > Run workflow.
+
+## Gerar o APK local
+
+Precisa do Android SDK em `android/local.properties`:
 
 ```bash
 npm run apk
