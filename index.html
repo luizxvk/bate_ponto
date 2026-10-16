@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#DDE1E4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#12161D" media="(prefers-color-scheme: dark)" />
+    <title>Bate Ponto</title>
+  </head>
+  <body>
+    <header class="visor" aria-label="Relógio">
+      <p class="visor-data" id="data"></p>
+      <p class="visor-hora" id="hora" aria-live="off">--:--</p>
+      <p class="visor-saldo" id="saldo"></p>
+      <div class="visor-barra" aria-hidden="true"><span id="barra"></span></div>
+    </header>
+
+    <nav class="abas" role="tablist">
+      <button role="tab" class="aba" data-aba="hoje" aria-selected="true">Hoje</button>
+      <button role="tab" class="aba" data-aba="espelho" aria-selected="false">Espelho de ponto</button>
+    </nav>
+
+    <main>
+      <section id="hoje" class="painel"></section>
+      <section id="espelho" class="painel" hidden></section>
+    </main>
+
+    <button class="nova" id="nova" aria-label="Nova tarefa">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+      <span>Nova tarefa</span>
+    </button>
+
+    <dialog class="folha" id="folha">
+      <form method="dialog" id="form">
+        <h2 id="form-titulo">Nova tarefa</h2>
+        <label class="campo">
+          <span>O que precisa ser feito</span>
+          <input name="titulo" required maxlength="80" autocomplete="off" placeholder="Ex.: Responder os e-mails do cliente" />
+        </label>
+        <div class="linha">
+          <label class="campo">
+            <span>Lembrete</span>
+            <input name="hora" type="time" />
+          </label>
+          <label class="campo">
+            <span>Dia</span>
+            <input name="dia" type="date" />
+          </label>
+        </div>
+        <fieldset class="repete">
+          <legend>Repetir</legend>
+          <label><input type="radio" name="repete" value="once" checked /> <span>Só uma vez</span></label>
+          <label><input type="radio" name="repete" value="daily" /> <span>Todo dia</span></label>
+          <label><input type="radio" name="repete" value="weekdays" /> <span>Seg a sex</span></label>
+        </fieldset>
+        <div class="acoes">
+          <button type="button" class="btn-sec" id="excluir" hidden>Excluir</button>
+          <span class="espaco"></span>
+          <button type="button" class="btn-sec" id="cancelar">Cancelar</button>
+          <button type="submit" class="btn" id="salvar">Salvar tarefa</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

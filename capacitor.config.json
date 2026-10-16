@@ -1,0 +1,8 @@
+{
+  "appId": "tech.fokustudios.bateponto",
+  "appName": "Bate Ponto",
+  "webDir": "dist",
+  "plugins": {
+    "LocalNotifications": { "smallIcon": "ic_stat_ponto", "iconColor": "#4B32C3" }
+  }
+}
